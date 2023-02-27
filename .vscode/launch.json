@@ -13,7 +13,7 @@
             "console": "externalTerminal",
             "env": {
                 "PYTHONPATH": "${workspaceRoot}"
-            },
+            }
         },
         {
             "name": "Python: Current Dir (internal)",
@@ -24,14 +24,15 @@
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${workspaceRoot}"
-            },
+            }
         },
         {
             "name": "Python: Current File (Integrated Terminal)",
             "type": "python",
+            "cwd": "${fileDirname}",
             "request": "launch",
             "program": "${file}",
-            "console": "integratedTerminal",
+            "console": "integratedTerminal"
         }
     ]
 }
