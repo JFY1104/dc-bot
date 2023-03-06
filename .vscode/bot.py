@@ -2,12 +2,16 @@ import discord
 from discord.ext import commands
 import json
 import random
+import os
+import asyncio
+import cmd
 
 with open('settings.json', 'r', encoding='utf8') as jfile:
     jdata = json.load(jfile)
 
 
 bot = commands.Bot(command_prefix='*', intents=discord.Intents.all())
+
 
 
 @bot.event
@@ -26,29 +30,17 @@ async def on_member_remove(member):
     channel = bot.get_channel(jdata['welcome_channel'])
     await channel.send(f'{member} leave!')
 
-
-@bot.command()
-async def ping(ctx):
-    """ctx = context"""
-    await ctx.send(f'{round(bot.latency*1000)} ms')
-
-
-@bot.command()
-async def 圖片(ctx):
-    randompic = random.choice(jdata['picpath'])
-    pic = discord.File(randompic)
-    await ctx.send(file=pic)
-""" send中要用file = pic 表示pic為檔案 
-    discord.File 而不是file  
-    路徑要用 \\ 分隔          
-"""
+async def load():
+    for filename in os.listdir('C:\\Users\\home\\Documents\\GitHub\\bot\\.vscode\\cmds'):
+            if filename.endswith('.py'):
+                await bot.load_extension(f'cmds.{filename[:-3]}')
 
 
-@bot.command()
-async def 線上圖片(ctx):
-    pic = jdata['picurl']
-    await ctx.send(pic)
-""" 發送網路上圖片時 只需要將網址當作文字發送即可 """
+    
 
+async def main():
+    await load()
+    if __name__ == "__main__":
+        await bot.run(jdata['TOKEN'])
 
-bot.run(jdata['TOKEN'])
+asyncio.run(main())
