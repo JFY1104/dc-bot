@@ -1,18 +1,22 @@
 import discord
 from discord.ext import commands
-from core.classes import cog_extension
 
 
-def setup(bot):
-    bot.add_cog(Main(bot))
-    
-class Main(cog_extension):
+
+
+class Main(commands.Cog):
         
-        @commands.command()
-        async def ping(self,ctx):
-         """ctx = context"""
-         await ctx.send(f'{round(self.bot.latency*1000)} ms')
+    def __init__(self, bot) -> None:
+        self.bot = bot
 
+    @commands.command()
+    async def ping(self,ctx):
+        """ctx = context"""
+        await ctx.send(f'{round(self.bot.latency*1000)} ms')
+
+
+async def setup(bot):
+    await bot.add_cog(Main(bot))
 
 
 

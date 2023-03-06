@@ -30,17 +30,19 @@ async def on_member_remove(member):
     channel = bot.get_channel(jdata['welcome_channel'])
     await channel.send(f'{member} leave!')
 
+
 async def load():
     for filename in os.listdir('C:\\Users\\home\\Documents\\GitHub\\bot\\.vscode\\cmds'):
             if filename.endswith('.py'):
                 await bot.load_extension(f'cmds.{filename[:-3]}')
-
+                print(filename)
 
     
 
 async def main():
     await load()
-    if __name__ == "__main__":
-        await bot.run(jdata['TOKEN'])
 
+    
 asyncio.run(main())
+if __name__ == "__main__":
+    bot.run(jdata['TOKEN'])
