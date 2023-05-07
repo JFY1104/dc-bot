@@ -5,6 +5,10 @@ import random
 import os
 import asyncio
 import cmd
+from discord.ui import Select
+from discord import emoji
+
+
 
 with open('settings.json', 'r', encoding='utf8') as jfile:
     jdata = json.load(jfile)
@@ -37,8 +41,29 @@ async def unload(ctx, extension):
     await ctx.send(f'UNLOAD cmds.{extension} DONE')
 
 
+
+    
+@bot.command()
+async def selector(self):
+    select = Select(options=[
+        discord.SelectOption(
+            label="sun",
+            emoji="good",
+            description="sun weather",
+            default=True
+        ),
+        discord.SelectOption(
+            label="rainy",
+            emoji="good",
+            description="rainy weather"
+        )
+    ])
+    await discord.Interaction.response.send_message(view=select)
+
+
+    
 async def load():
-    for filename in os.listdir('C:\\Users\\home\\Documents\\GitHub\\bot\\.vscode\\cmds'):
+    for filename in os.listdir('C:\\Users\\jack3\\OneDrive\\文件\\GitHub\\dc-bot\\.vscode\\cmds'):
         if filename.endswith('.py'):
             await bot.load_extension(f'cmds.{filename[:-3]}')
 

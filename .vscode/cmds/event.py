@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import json
 
+
 with open('settings.json', 'r', encoding='utf8') as jfile:
     jdata = json.load(jfile)
 
@@ -26,6 +27,7 @@ class event(commands.Cog):
         if msg.content in jdata['keyword'] and msg.author != self.bot.user:
             await msg.channel.send('嘟嘟可借你摸摸')
 
+    
 
 async def setup(bot):
     await bot.add_cog(event(bot))
